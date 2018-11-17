@@ -285,4 +285,13 @@ interface RepositoryInterface
      * @return mixed
      */
     public function firstOrCreate(array $attributes = []);
+
+    /**
+     * Limit the rows retrieved
+     *
+     * @param int $limit
+     *
+     * @return ???
+     */
+    public function limit(int $limit);
 }

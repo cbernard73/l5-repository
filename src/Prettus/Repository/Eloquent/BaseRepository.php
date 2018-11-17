@@ -1008,4 +1008,23 @@ abstract class BaseRepository implements RepositoryInterface, RepositoryCriteria
 
         return $result;
     }
+
+    /**
+     * Limit the size of the result set
+     *
+     * @param int $limit
+     *
+     * @return mixed
+     */
+    public function limit(int $limit)
+    {
+        $this->applyCriteria();
+        $this->applyScope();
+        $limit = is_null($limit) ? config('repository.pagination.limit', 15) : $limit;
+        $results = $this->model->limit($limit);
+        $results->appends(app('request')->query());
+        $this->resetModel();
+
+        return $this->parserResult($results);
+    }
 }
